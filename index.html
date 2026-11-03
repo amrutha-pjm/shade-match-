@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Smart Learning Content Categorizer</title>
+</head>
+<body style="font-family: Arial; text-align:center; padding:40px;">
+
+<h1>Smart Learning Content Categorizer</h1>
+
+<textarea id="inputText" placeholder="Paste your content here..." style="width:60%; height:150px;"></textarea><br><br>
+
+<button onclick="analyze()">Analyze</button>
+
+<h2 id="topic"></h2>
+<p id="result"></p>
+
+<div id="videos"></div>
+
+<script>
+function analyze() {
+  let text = document.getElementById("inputText").value.toLowerCase();
+
+  let topic = "General";
+
+  if (text.includes("sql") || text.includes("database")) topic = "DBMS";
+  else if (text.includes("network")) topic = "Computer Networks";
+  else if (text.includes("neural") || text.includes("learning")) topic = "Machine Learning";
+
+  document.getElementById("topic").innerHTML = "Detected Topic: " + topic;
+
+  let filtered = text.split(" ").slice(0, 50).join(" ");
+  document.getElementById("result").innerHTML = "Important Content: " + filtered;
+
+  let videos = {
+    "DBMS": "https://www.youtube.com/results?search_query=dbms+tutorial",
+    "Machine Learning": "https://www.youtube.com/results?search_query=machine+learning",
+    "Computer Networks": "https://www.youtube.com/results?search_query=computer+networks"
+  };
+
+  document.getElementById("videos").innerHTML =
+    "<br><a href='" + (videos[topic] || "#") + "' target='_blank'>Watch Related Videos</a>";
+}
+</script>
+
+</body>
+</html>
